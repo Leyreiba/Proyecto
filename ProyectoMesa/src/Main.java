@@ -25,6 +25,8 @@ public class Main{
 				}
             }
         });
+        
+        principal.getWindows();
     }
 
 	public void setVisible(boolean b) {

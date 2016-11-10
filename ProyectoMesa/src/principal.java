@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -129,6 +130,24 @@ public class principal extends JFrame {
 		btnEcualizador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//relacionar este botón con la clase ecualizador(reproducir el main)
+				
+				try {
+		            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		        }
+		        catch(Exception e1) {}
+		        java.awt.EventQueue.invokeLater(new Runnable(){
+		            
+		        	@Override
+		            public void run(){
+		                try {
+							new ecualizador().setVisible(true);
+							
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		            }
+		        });
 			}
 		});
 		

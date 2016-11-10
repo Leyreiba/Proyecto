@@ -4,12 +4,14 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 public class ecualizador extends JFrame {
 
@@ -55,7 +57,7 @@ public class ecualizador extends JFrame {
 	        setVisible(true);
 	        //dimensiones de la ventana donde va a salir el ecualizador
 	        setBounds(150,150,500,300);
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        //filas y columnas que va a tener el ecualizador
 	        setLayout(new GridLayout(1, 10));
 	        //creo un array de barras
@@ -114,6 +116,11 @@ public class ecualizador extends JFrame {
 	                    Thread.sleep(15);
 	                }
 	            } catch(InterruptedException e) {}
+	            
 	        }
 	    }
+	
+			
+			
+		
 	}
