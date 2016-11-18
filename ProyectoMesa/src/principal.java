@@ -71,6 +71,8 @@ public class principal extends JFrame {
 		list1.setToolTipText("");
 		list1.setBounds(37, 68, 140, 203);
 		contentPane.add(list1);
+		
+		
 		//DefaultListModel<principal> dlmlist1 = (DefaultListModel<principal>)list1.getModel();
 //		JScrollPane barraDesplazamiento = new JScrollPane(list); 
 //		barraDesplazamiento.setBounds(10,30,200,110); 

@@ -22,8 +22,8 @@ public class ecualizador extends JFrame {
 	 public ecualizador() throws InterruptedException{
 		 
 		 /**
-		  * quiero que el nombre de la ventana vaya cambiando y vaya eligiendo aleatoriamente comentarios
-		  * que yo haya introducido
+		  * El nombre de la ventana va cambiando y va introduciendo aleatoriamente en un array de strings
+		  * comentarios que yo he añadido
 		  */
 	
 		 titulosVentana = new ArrayList<String>();
@@ -32,14 +32,25 @@ public class ecualizador extends JFrame {
          titulosVentana.add("titulo 3");
          titulosVentana.add("titulo 4");
          titulosVentana.add("titulo 5");
+         
+//         //array de colores para el fondo
+//         colorBackground = new ArrayList<int>();
+//         colorBackground.add(Color.BLACK);
+//         colorBackground.add(Color.GREEN);
+//         colorBackground.add(Color.BLUE);
+//         colorBackground.add(Color.CYAN);
+//         colorBackground.add(Color.DARK_GRAY);
+//         colorBackground.add(Color.MAGENTA);
+         
 
          
-         //creo un hilo con los diferentes nombres que le voy a asignar a la ventana
+         //creo un hilo para que el array de nombres se vaya ejecutando a la vez que se ejecuta el resto del programa
          Thread threadTitulos = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				//genero un bucle infinito para los titulos
 				while(true){
 					int num = (int) Math.floor(Math.random()*(titulosVentana.size()-1+1)+0);
 					setTitle(titulosVentana.get(num));
@@ -119,7 +130,7 @@ public class ecualizador extends JFrame {
 	            
 	        }
 	    }
-	
+		
 			
 			
 		

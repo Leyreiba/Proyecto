@@ -10,6 +10,10 @@ import Datos.Cancion;
 
 public class BD {
 	
+	//creo una carpeta dentro del proyecto donde meto todas las canciones con la extension mp3. 
+	//En la base de datos introduzco el nombre de la cancion y desde el programa hago un audioClip llamando a la cancion con ese nombre
+	//despues hago un start y se reproduce
+	
 	private Connection con;
 	private static Statement stmt;
 	
