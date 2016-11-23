@@ -15,8 +15,12 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -66,8 +70,8 @@ public class principal extends JFrame {
 		 * pasar el nombre al textfield de abajo
 		 */
 		
-		
-		JList list1 = new JList();
+		DefaultListModel<String> dlm = new DefaultListModel<String>();
+		JList<String> list1 = new JList<String>(dlm);
 		list1.setToolTipText("");
 		list1.setBounds(37, 68, 140, 203);
 		contentPane.add(list1);
@@ -78,9 +82,12 @@ public class principal extends JFrame {
 //		barraDesplazamiento.setBounds(10,30,200,110); 
 //		list.add(barraDesplazamiento); 
 		
-		JList list2 = new JList();
+		JList<String> list2 = new JList<String>(dlm);
 		list2.setBounds(324, 68, 140, 203);
 		contentPane.add(list2);
+		
+			
+
 		
 		
 		textField1 = new JTextField();
@@ -157,6 +164,35 @@ public class principal extends JFrame {
 		btnEcualizador.setFont(new Font("Sylfaen", Font.ITALIC, 9));
 		btnEcualizador.setBounds(197, 36, 104, 23);
 		contentPane.add(btnEcualizador);
+		
+		JFrame v = this;
+		JButton btnElegirCancin = new JButton("Elegir canci\u00F3n");
+		btnElegirCancin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/**
+				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la música.
+				 * Activo la selección multiple para poder elegir más de una canción.
+				 * Introduzco las canciones seleccionadas(el nombre) en las jlist
+				 * 
+				 * */
+				JFileChooser fc = new JFileChooser(new File("C:\\Users\\Leyre\\Music"));
+				fc.setMultiSelectionEnabled(true);
+				int result = fc.showOpenDialog(v);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File[] cancionesSeleccionadas = fc.getSelectedFiles();
+					DefaultListModel<String> dlm = (DefaultListModel<String>) list1.getModel(); 
+					for(int i=0;i<cancionesSeleccionadas.length;i++){
+						dlm.addElement(cancionesSeleccionadas[i].getName());
+						System.out.println(cancionesSeleccionadas[i].getName());
+					}
+					list1.setModel(dlm);
+				}
+				
+			}
+		});
+		btnElegirCancin.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 11));
+		btnElegirCancin.setBounds(187, 69, 127, 23);
+		contentPane.add(btnElegirCancin);
 		
 		
 		
