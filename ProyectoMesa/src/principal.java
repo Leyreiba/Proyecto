@@ -10,6 +10,7 @@ import BasesDeDatos.BD;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -71,35 +72,47 @@ public class principal extends JFrame {
 		 */
 		
 		DefaultListModel<String> dlm = new DefaultListModel<String>();
-		JList<String> list1 = new JList<String>(dlm);
-		list1.setToolTipText("");
-		list1.setBounds(37, 68, 140, 203);
-		contentPane.add(list1);
-		
-		
-		//DefaultListModel<principal> dlmlist1 = (DefaultListModel<principal>)list1.getModel();
-//		JScrollPane barraDesplazamiento = new JScrollPane(list); 
-//		barraDesplazamiento.setBounds(10,30,200,110); 
-//		list.add(barraDesplazamiento); 
-		
-		JList<String> list2 = new JList<String>(dlm);
-		list2.setBounds(324, 68, 140, 203);
-		contentPane.add(list2);
-		
-			
-
-		
-		
-		textField1 = new JTextField();
-		textField1.setBounds(37, 286, 140, 26);
-		contentPane.add(textField1);
-		textField1.setColumns(10);
-		
-		textField2 = new JTextField();
-		textField2.setColumns(10);
-		textField2.setBounds(324, 286, 140, 26);
-		contentPane.add(textField2);
-		
+		 //CREAMOS LA LIST1
+		             JList<String> list1 = new JList<String>(dlm);
+		             list1.setToolTipText("");
+		             list1.setBounds(37, 68, 140, 203);
+		             contentPane.add(list1);   
+		             //Anyadir ScrollPane a la JList1
+		                 list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		                 JScrollPane scrollPane = new JScrollPane(list1);
+		                 scrollPane.setBounds(37, 68, 140, 203);
+		                 contentPane.add(scrollPane);
+		                 
+		               
+		            
+		 
+		               //CREAMOS LA LIST2
+		             JList<String> list2 = new JList<String>(dlm);
+		             list2.setBounds(324, 68, 140, 203);
+		             contentPane.add(list2);
+		             //Anyadir ScrollPane2 a Jlist2
+		               list2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		               JScrollPane scrollPane2=new JScrollPane(list2);
+		               scrollPane2.setBounds(324, 68, 140, 203);
+		               contentPane.add(scrollPane2);
+		               
+		 	
+		 		//Creamos el textField1
+		 		textField1 = new JTextField();
+		 		textField1.setColumns(10);
+		 		textField1.setBounds(37, 286, 140, 26);
+		 		//Anyadimos al textField1 el nombre del archivo seleccionado en list1
+		 		//textField1.setText(list1.getSelectedValue().toString()); 
+		 		contentPane.add(textField1);
+		 		
+		 		//Creamos el TextField2
+		 		textField2 = new JTextField();
+		 		textField2.setColumns(10);
+		 		textField2.setBounds(324, 286, 140, 26);
+		 		//Anyadimos al textField2 el nombre del archivo seleccionado en list2
+		 		//textField2.setText(list2.getSelectedValue().toString());
+		 		contentPane.add(textField2);
+		 		
 		JSlider slider = new JSlider();
 		slider.setBounds(187, 286, 128, 26);
 		contentPane.add(slider);
@@ -138,7 +151,7 @@ public class principal extends JFrame {
 		JButton btnEcualizador = new JButton("ECUALIZADOR");
 		btnEcualizador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//relacionar este botón con la clase ecualizador(reproducir el main)
+				//relacionar este botï¿½n con la clase ecualizador(reproducir el main)
 				
 				try {
 		            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -170,12 +183,12 @@ public class principal extends JFrame {
 		btnElegirCancin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/**
-				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la música.
-				 * Activo la selección multiple para poder elegir más de una canción.
+				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la mï¿½sica.
+				 * Activo la selecciï¿½n multiple para poder elegir mï¿½s de una canciï¿½n.
 				 * Introduzco las canciones seleccionadas(el nombre) en las jlist
 				 * 
 				 * */
-				JFileChooser fc = new JFileChooser(new File("C:\\Users\\Leyre\\Music"));
+				JFileChooser fc = new JFileChooser(new File("Users/MacOier/Desktop/MDownload"));
 				fc.setMultiSelectionEnabled(true);
 				int result = fc.showOpenDialog(v);
 				if (result == JFileChooser.APPROVE_OPTION) {
@@ -200,29 +213,29 @@ public class principal extends JFrame {
 		
 		
 		
-//		if(JList.cancion(nº).isSelected()){
+//		if(JList.cancion(nï¿½).isSelected()){
 //
-//			JTextFiel.setText(cancion(nº));
+//			JTextFiel.setText(cancion(nï¿½));
 //		}
 		
 		
 		
-//		//Creación del panel, que contendra JList 
+//		//Creaciï¿½n del panel, que contendra JList 
 //		JPanel panel = new JPanel(); 
 //		panel.setLayout(null); 
 //
-//		//creación de los elememtos que componen la lista 
+//		//creaciï¿½n de los elememtos que componen la lista 
 //		String[] nombres = {"Ana","Margarita","Daniela","Divian", 
 //		"Leslie","Paz","Andrea","Macarena"}; 
-//		//creación del objeto lista 
+//		//creaciï¿½n del objeto lista 
 //		JList lista = new JList(nombres); 
-//		//se cambia la orientación de presentación y el ajuste 
+//		//se cambia la orientaciï¿½n de presentaciï¿½n y el ajuste 
 //		lista.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION); 
 //		//selecciona un elemento de la lista 
 //		Object[] seleccion = lista.getSelectedValues(); 
 //		//recoge el indice de los seleccionados 
 //		int[] indices = lista.getSelectedIndices(); 
-//		// aquí se crea el objeto, es decir la barra de desplazamiento 
+//		// aquï¿½ se crea el objeto, es decir la barra de desplazamiento 
 //		JScrollPane barraDesplazamiento = new JScrollPane(lista); 
 //		barraDesplazamiento.setBounds(10,30,200,110); 
 //		//Agrega la barra de desplazamiento al panel 
