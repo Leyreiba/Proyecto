@@ -21,9 +21,11 @@ import javax.swing.JFileChooser;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -34,6 +36,7 @@ public class principal extends JFrame {
 	private JTextField textField1;
 	private JTextField textField2;
 	public static BD bd;
+	
 
 	/**
 	 * Launch the application.
@@ -76,12 +79,14 @@ public class principal extends JFrame {
 		             JList<String> list1 = new JList<String>(dlm);
 		             list1.setToolTipText("");
 		             list1.setBounds(37, 68, 140, 203);
-		             contentPane.add(list1);   
+		             contentPane.add(list1);  
+		             
 		             //Anyadir ScrollPane a la JList1
 		                 list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		                 JScrollPane scrollPane = new JScrollPane(list1);
 		                 scrollPane.setBounds(37, 68, 140, 203);
 		                 contentPane.add(scrollPane);
+		            
 		                 
 		               
 		            
@@ -102,6 +107,7 @@ public class principal extends JFrame {
 		 		textField1.setColumns(10);
 		 		textField1.setBounds(37, 286, 140, 26);
 		 		//Anyadimos al textField1 el nombre del archivo seleccionado en list1
+		 	
 		 		//textField1.setText(list1.getSelectedValue().toString()); 
 		 		contentPane.add(textField1);
 		 		
@@ -196,6 +202,8 @@ public class principal extends JFrame {
 					DefaultListModel<String> dlm = (DefaultListModel<String>) list1.getModel(); 
 					for(int i=0;i<cancionesSeleccionadas.length;i++){
 						dlm.addElement(cancionesSeleccionadas[i].getName());
+						//Aqui meter el insert a la base de datos y de esta manera conseguir que a la vez que guardamos el name 
+						//de las canciones en la JList 
 						System.out.println(cancionesSeleccionadas[i].getName());
 					}
 					list1.setModel(dlm);
