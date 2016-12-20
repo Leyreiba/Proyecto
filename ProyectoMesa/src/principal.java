@@ -123,6 +123,10 @@ public class principal extends JFrame {
 				}));
 				aThreads.get(0).start();
 			}
+			
+//			public void volcarBD(){
+//			
+//			}
 		});
 		list1.setToolTipText("");
 //		list1.setBounds(37, 68, 140, 203);
@@ -308,6 +312,7 @@ public class principal extends JFrame {
 		contentPane.add(btnElegirCancin);
 		
 		
+				
 		
 		
 		
