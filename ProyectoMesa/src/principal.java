@@ -79,6 +79,8 @@ public class principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public principal() {
 		bd = new BD();
 		setResizable(false);
