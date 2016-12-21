@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import BasesDeDatos.BD;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -33,6 +35,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
 public class principal extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// Atributo de VLCj
+//		private EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
 	private JPanel contentPane;
 	private JTextField textField1;
@@ -43,6 +52,18 @@ public class principal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		
+//		// Inicializar VLC.
+//	
+//			// Buscar vlc como variable de entorno
+//			String vlcPath = System.getenv().get( "vlc" );
+//			if (vlcPath==null) {  // Poner VLC a mano
+//	        	System.setProperty("jna.library.path", "c:\\Program Files\\videolan\\VLC");
+//			} else {  // Poner VLC desde la variable de entorno
+//				System.setProperty( "jna.library.path", vlcPath );
+//			}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -242,11 +263,37 @@ public class principal extends JFrame {
 		
 		JButton BotonPlayDrcha = new JButton(">");
 		BotonPlayDrcha.setBounds(324, 36, 58, 23);
+//		BotonPlayDrcha.addActionListener( new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
+//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+//					} else {
+//						// TODO: hacer play
+//					}
+//				} else {
+//					lanzaVideo();
+//				}
+//			}
+//		});
 		contentPane.add(BotonPlayDrcha);
 		
 		JButton BotonPausaDrcha = new JButton("||");
 		BotonPausaDrcha.setBounds(406, 36, 58, 23);
+//		BotonPausaDrcha.addActionListener( new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
+//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+//						// TODO: hacer pausa
+//					}
+//				} else {
+//					lanzaVideo();
+//				}
+//			}
+//		});
 		contentPane.add(BotonPausaDrcha);
+		
 		
 		JButton btnEcualizador = new JButton("ECUALIZADOR");
 		btnEcualizador.addActionListener(new ActionListener() {
