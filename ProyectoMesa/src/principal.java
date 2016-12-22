@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import BasesDeDatos.BD;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -33,6 +35,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
 public class principal extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// Atributo de VLCj
+//		private EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
 	private JPanel contentPane;
 	private JTextField textField1;
@@ -43,6 +52,18 @@ public class principal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		
+//		// Inicializar VLC.
+//	
+//			// Buscar vlc como variable de entorno
+//			String vlcPath = System.getenv().get( "vlc" );
+//			if (vlcPath==null) {  // Poner VLC a mano
+//	        	System.setProperty("jna.library.path", "c:\\Program Files\\videolan\\VLC");
+//			} else {  // Poner VLC desde la variable de entorno
+//				System.setProperty( "jna.library.path", vlcPath );
+//			}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,6 +79,8 @@ public class principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public principal() {
 		bd = new BD();
 		setResizable(false);
@@ -79,8 +102,8 @@ public class principal extends JFrame {
 		 * Creo un thread para que mientras se ejecute el programa se 
 		 * siga ejecutando el dato del jTextField.
 		 * Selecciono el texto de la lista y se escribe en el jTextField.
-		 * Cada vez que selecciono una nueva canción, los threads anteriores se paran y 
-		 * se crea el de la nueva selección
+		 * Cada vez que selecciono una nueva canciÃ³n, los threads anteriores se paran y 
+		 * se crea el de la nueva selecciÃ³n
 		 * */
 		
 		
@@ -135,7 +158,7 @@ public class principal extends JFrame {
 	
 		
 		/**
-		 * Añadimos una JScrollPane a la lista
+		 * AÃ±adimos una JScrollPane a la lista
 		 * */
 		
 		 list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -242,16 +265,42 @@ public class principal extends JFrame {
 		
 		JButton BotonPlayDrcha = new JButton(">");
 		BotonPlayDrcha.setBounds(324, 36, 58, 23);
+//		BotonPlayDrcha.addActionListener( new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
+//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+//					} else {
+//						// TODO: hacer play
+//					}
+//				} else {
+//					lanzaVideo();
+//				}
+//			}
+//		});
 		contentPane.add(BotonPlayDrcha);
 		
 		JButton BotonPausaDrcha = new JButton("||");
 		BotonPausaDrcha.setBounds(406, 36, 58, 23);
+//		BotonPausaDrcha.addActionListener( new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
+//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+//						// TODO: hacer pausa
+//					}
+//				} else {
+//					lanzaVideo();
+//				}
+//			}
+//		});
 		contentPane.add(BotonPausaDrcha);
+		
 		
 		JButton btnEcualizador = new JButton("ECUALIZADOR");
 		btnEcualizador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//relacionar este botón con la clase ecualizador(reproducir el main)
+				//relacionar este botÃ³n con la clase ecualizador(reproducir el main)
 				
 				try {
 		            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -283,8 +332,8 @@ public class principal extends JFrame {
 		btnElegirCancin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/**
-				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la música.
-				 * Activo la selección multiple para poder elegir más de una canción.
+				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la mÃºsica.
+				 * Activo la selecciÃ³n multiple para poder elegir mÃ¡s de una canciÃ³n.
 				 * Introduzco las canciones seleccionadas(el nombre) en las jlist
 				 * 
 				 * */
@@ -312,6 +361,7 @@ public class principal extends JFrame {
 		contentPane.add(btnElegirCancin);
 		
 		
+				
 		
 		
 				
@@ -320,29 +370,29 @@ public class principal extends JFrame {
 		
 		
 		
-//		if(JList.cancion(nº).isSelected()){
+//		if(JList.cancion(nÂº).isSelected()){
 //
-//			JTextFiel.setText(cancion(nº));
+//			JTextFiel.setText(cancion(nÂº));
 //		}
 		
 		
 		
-//		//Creación del panel, que contendra JList 
+//		//CreaciÃ³n del panel, que contendra JList 
 //		JPanel panel = new JPanel(); 
 //		panel.setLayout(null); 
 //
-//		//creación de los elememtos que componen la lista 
+//		//creaciÃ³n de los elememtos que componen la lista 
 //		String[] nombres = {"Ana","Margarita","Daniela","Divian", 
 //		"Leslie","Paz","Andrea","Macarena"}; 
-//		//creación del objeto lista 
+//		//creaciÃ³n del objeto lista 
 //		JList lista = new JList(nombres); 
-//		//se cambia la orientación de presentación y el ajuste 
+//		//se cambia la orientaciÃ³n de presentaciÃ³n y el ajuste 
 //		lista.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION); 
 //		//selecciona un elemento de la lista 
 //		Object[] seleccion = lista.getSelectedValues(); 
 //		//recoge el indice de los seleccionados 
 //		int[] indices = lista.getSelectedIndices(); 
-//		// aquí se crea el objeto, es decir la barra de desplazamiento 
+//		// aquÃ­ se crea el objeto, es decir la barra de desplazamiento 
 //		JScrollPane barraDesplazamiento = new JScrollPane(lista); 
 //		barraDesplazamiento.setBounds(10,30,200,110); 
 //		//Agrega la barra de desplazamiento al panel 
