@@ -312,6 +312,8 @@ public class principal extends JFrame {
 		contentPane.add(btnElegirCancin);
 		
 		
+		
+		
 				
 		
 		
