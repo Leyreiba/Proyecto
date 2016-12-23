@@ -1,11 +1,13 @@
 package Media;
 
 import java.awt.*;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -24,7 +26,6 @@ import uk.co.caprica.vlcj.player.directaudio.DirectAudioPlayer;
 import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
 import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
 
-import com.sun.jna.Pointer;
 
 /** Ventana de reproductor de vídeo con visualización de audio
  * Utiliza la librería VLCj que debe estar instalada y configurada (http://www.capricasoftware.co.uk/projects/vlcj/index.html)
@@ -287,7 +288,7 @@ public class AudioPlayer extends JFrame {
 			@Override
 			public void run() {
 				miVentana = new AudioPlayer();
-				miVentana.setVisible( true );
+				miVentana.setVisible( false );
 				miVentana.lanzaVideo( "D:\\media\\videos\\AOrdenar\\Bruno Mars - Locked Out Of Heaven [OFFICIAL VIDEO].mp4" );  // Video de test
 			}
 		});
