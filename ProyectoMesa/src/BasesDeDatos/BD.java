@@ -77,6 +77,7 @@ public class BD {
 	
 	public BD(){
 		conectar();
+		System.out.println("CONECTADA");
 	}
 	
 	
@@ -88,7 +89,7 @@ public class BD {
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) //Si la select ha devuelto filas
-				c=new Cancion(rs.getString("titulo"),rs.getString("autor"),rs.getInt("duracion"));
+				c=new Cancion(rs.getString("titulo"),rs.getInt("genero"));
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block  
@@ -97,14 +98,62 @@ public class BD {
 		return c;
 	}
 	
-	public void insertarNuevaCancion (Cancion c){
-		String query = "INSERT INTO cancion (titulo, autor, duracion) VALUES ('"+c.getTitulo()+"','"+c.getAutor()+"','"+c.getDuracion()+"')";
+	
+	/**
+	 * Compruebo si la canción que quiero introducir ya existe en la BD
+	 * */
+	public boolean existeCancion(Cancion c){
+		boolean existe=false;
+		String query="SELECT * FROM Cancion WHERE titulo='"+c.getTitulo()+"'";
+		ResultSet rs;
 		try {
-			stmt.executeUpdate(query);
+			rs = stmt.executeQuery(query);
+			if(rs.next())
+				existe=true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return existe;
+	}
+	
+	/**
+	 * Inserto las canciones en la BD mientras no estén repetidas. Si una canción que quiero meter
+	 * ya está en la BD no la introduce de nuevo
+	 * */
+	public void insertarNuevaCancion (Cancion c){
+		String query = "INSERT INTO cancion (titulo,genero) VALUES ('"+c.getTitulo()+"',"+c.getGenero()+")";
+		try {
+			if(!existeCancion(c))
+				stmt.executeUpdate(query);
+				System.out.println("Insertada");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Creo un numero aleatorio desde 0 hasta el ultimo número de la tabla género
+	 * */
+	public int obtenerGeneroAleatorio(){
+		int cont, genero=0;
+		String query="SELECT COUNT(*) FROM Genero";
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery(query);
+			if(rs.next()){
+				cont=rs.getInt(1);
+				System.out.println(cont);
+				genero = (int)(Math.random()*cont)+1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return genero;
+	}
 }

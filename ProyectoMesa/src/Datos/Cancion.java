@@ -5,16 +5,14 @@ import java.io.Serializable;
 public class Cancion implements Serializable{
 	
 	private String titulo;
-	private String autor;
-	private int duracion;
+	private int genero;
 	
 
 	
-	public Cancion(String titulo, String autor, int duracion) {
+	public Cancion(String titulo, int genero) {
 		super();
 		this.titulo = titulo;
-		this.autor = autor;
-		this.duracion = duracion;
+		this.genero= genero;
 		
 		//crear un array de titulos cogiendo los de la carpeta de musica
 		
@@ -32,25 +30,16 @@ public class Cancion implements Serializable{
 		this.titulo = titulo;
 	}
 
-	public String getAutor() {
-		return autor;
+	public int getGenero() {
+		return genero;
 	}
 
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public void setGenero(int genero) {
+		this.genero = genero;
 	}
-
-	public int getDuracion() {
-		return duracion;
-	}
-
-	public void setDuracion(int duracion) {
-		this.duracion = duracion;
-	}
-
 	@Override
 	public String toString() {
-		return "Cancion [titulo=" + titulo + ", autor=" + autor + ", duracion=" + duracion + "]";
+		return "Cancion [titulo=" + titulo + ", genero=" + genero + "]";
 	}
 	
 	

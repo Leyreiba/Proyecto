@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import BasesDeDatos.BD;
+import Datos.Cancion;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
@@ -83,6 +84,7 @@ public class principal extends JFrame {
 	
 	public principal() {
 		bd = new BD();
+		System.out.println("ABIERTA LA BD");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 516, 392);
@@ -337,13 +339,17 @@ public class principal extends JFrame {
 				 * Introduzco las canciones seleccionadas(el nombre) en las jlist
 				 * 
 				 * */
-				JFileChooser fc = new JFileChooser(new File("C:\\Users\\Leyre\\Music"));
+				JFileChooser fc = new JFileChooser(new File("C:\\Users\\Leyre\\git\\Proyect\\ProyectoMesa\\MUSICA"));
 				fc.setMultiSelectionEnabled(true);
 				int result = fc.showOpenDialog(v);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File[] cancionesSeleccionadas = fc.getSelectedFiles();
 					DefaultListModel<String> dlm = (DefaultListModel<String>) list1.getModel(); 
 					for(int i=0;i<cancionesSeleccionadas.length;i++){
+						System.out.println("VAMOS A INSERTAR UNA CANCION");
+						Cancion c = new Cancion(cancionesSeleccionadas[i].getName(), bd.obtenerGeneroAleatorio());
+						bd.insertarNuevaCancion(c);
+						System.out.println("Cancion insertada");
 						dlm.addElement(cancionesSeleccionadas[i].getName());
 						System.out.println(cancionesSeleccionadas[i].getName());
 					}
@@ -352,6 +358,7 @@ public class principal extends JFrame {
 						dlm.addElement(cancionesSeleccionadas[i].getName());
 						System.out.println(cancionesSeleccionadas[i].getName());
 					}
+					
 				}
 				
 			}
