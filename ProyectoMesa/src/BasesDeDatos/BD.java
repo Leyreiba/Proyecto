@@ -86,7 +86,7 @@ public class BD {
 		String query;
 		Cancion c=null;
 		
-		query="SELECT * FROM cliente WHERE titulo='"+titulo+"'"; 
+		query="SELECT * FROM CANCION WHERE NOMBRE='"+titulo+"'"; 
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) //Si la select ha devuelto filas
@@ -105,7 +105,7 @@ public class BD {
 	 * */
 	public boolean existeCancion(Cancion c){
 		boolean existe=false;
-		String query="SELECT * FROM Cancion WHERE titulo='"+c.getTitulo()+"'";
+		String query="SELECT * FROM Cancion WHERE NOMBRE='"+c.getTitulo()+"'";
 		ResultSet rs;
 		try {
 			rs = stmt.executeQuery(query);
@@ -126,7 +126,10 @@ public class BD {
 	 * ya est� en la BD no la introduce de nuevo
 	 * */
 	public void insertarNuevaCancion (Cancion c){
-		String query = "INSERT INTO cancion (titulo,genero,ruta) VALUES ('"+c.getTitulo()+"',"+c.getGenero()+",'"+c.getRuta()+"')";
+		
+		System.out.println("'"+c.getTitulo()+"',"+c.getGenero()+",'"+c.getRuta()+"'");
+		
+		String query = "INSERT INTO cancion (nombre,genero,ruta) VALUES ('"+c.getTitulo()+"',"+c.getGenero()+",'"+c.getRuta()+"')";
 		try {
 			if(!existeCancion(c))
 				stmt.executeUpdate(query);
@@ -166,7 +169,7 @@ public class BD {
 		try {
 			rs = stmt.executeQuery(query);
 			while(rs.next()){
-				aCanciones.add(new Cancion(rs.getString("titulo"),rs.getInt("genero"),rs.getString("Ruta")));
+				aCanciones.add(new Cancion(rs.getString("NOMBRE"),rs.getInt("genero"),rs.getString("Ruta")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
