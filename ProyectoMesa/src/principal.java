@@ -26,6 +26,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -83,7 +88,74 @@ public class principal extends JFrame {
 	
 	
 	public principal() {
+		File f = new File("MUSICA\\POP");
+		if(!f.exists())
+			f.mkdirs();
+		f = new File("MUSICA\\ROCK");
+		if(!f.exists())
+			f.mkdirs();
 		bd = new BD();
+		String path = "MUSICA"; 
+	    
+	    File folder = new File(path);
+	    File[] listOfFiles = folder.listFiles(); 
+	    for (int i = 0; i < listOfFiles.length; i++)         
+	    {
+	    	if (listOfFiles[i].isFile())             
+	    	{
+	                String nombreCancion = listOfFiles[i].getName();
+	                bd.insertarNuevaCancion(new Cancion(nombreCancion,bd.obtenerGeneroAleatorio()));
+	        }
+	    }
+	    ArrayList<String> aGeneros = bd.obtenerNombresGenero();
+	    ArrayList<Cancion> aCanciones = bd.obtenerTodasLasCanciones();
+	    for(Cancion c: aCanciones){
+	    	    File sourceFile = new File("MUSICA\\"+c.getTitulo());
+	    	    File destFile = new File("MUSICA\\"+aGeneros.get(c.getGenero()-1));
+	    		if(!destFile.exists()) {
+	    	        try {
+						destFile.createNewFile();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    	    }
+	    	 
+	    	    FileChannel origen = null;
+	    	    FileChannel destino = null;
+	    	    try {
+	    	        origen = new FileInputStream(sourceFile).getChannel();
+	    	        destino = new FileOutputStream(destFile).getChannel();
+	    	 
+	    	        long count = 0;
+	    	        long size = origen.size();              
+	    	        while((count += destino.transferFrom(origen, count, size-count))<size);
+	    	    } catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    	    finally {
+	    	        if(origen != null) {
+	    	            try {
+							origen.close();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	    	        }
+	    	        if(destino != null) {
+	    	            try {
+							destino.close();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	    	        }
+	    	    }
+	    }
 		System.out.println("ABIERTA LA BD");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,7 +173,7 @@ public class principal extends JFrame {
 		 */
 		
 		/**
-		 * Creo un thread para que mientras se ejecute el programa se 
+		 * Creo un thread (lanzamiento de un hilo) para que mientras se ejecute el programa se 
 		 * siga ejecutando el dato del jTextField.
 		 * Selecciono el texto de la lista y se escribe en el jTextField.
 		 * Cada vez que selecciono una nueva canción, los threads anteriores se paran y 
@@ -114,6 +186,7 @@ public class principal extends JFrame {
 		ArrayList<Thread> aThreads = new ArrayList<Thread>();
 		DefaultListModel<String> dlm = new DefaultListModel<String>();
 		JList<String> list1 = new JList<String>(dlm);
+		list1.setBounds(1, 1, 138, 336);
 		list1.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				for(int i=0;i<aThreads.size();i++){
@@ -166,6 +239,8 @@ public class principal extends JFrame {
 		 list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
          JScrollPane scrollPane = new JScrollPane(list1);
          scrollPane.setBounds(37, 68, 140, 203);
+         
+         
          contentPane.add(scrollPane);
          
          
@@ -244,17 +319,17 @@ public class principal extends JFrame {
 		
 		JSlider slider_1 = new JSlider();
 		slider_1.setOrientation(SwingConstants.VERTICAL);
-		slider_1.setBounds(197, 97, 28, 156);
+		slider_1.setBounds(197, 115, 28, 156);
 		contentPane.add(slider_1);
 		
 		JSlider slider_2 = new JSlider();
 		slider_2.setOrientation(SwingConstants.VERTICAL);
-		slider_2.setBounds(235, 97, 28, 156);
+		slider_2.setBounds(235, 115, 28, 156);
 		contentPane.add(slider_2);
 		
 		JSlider slider_3 = new JSlider();
 		slider_3.setOrientation(SwingConstants.VERTICAL);
-		slider_3.setBounds(273, 97, 28, 156);
+		slider_3.setBounds(273, 115, 28, 156);
 		contentPane.add(slider_3);
 		
 		JButton BotonPlayIzq = new JButton(">");
@@ -330,8 +405,8 @@ public class principal extends JFrame {
 		contentPane.add(btnEcualizador);
 		
 		JFrame v = this;
-		JButton btnElegirCancin = new JButton("Elegir canci\u00F3n");
-		btnElegirCancin.addActionListener(new ActionListener() {
+		JButton btncancion = new JButton("Elegir canci\u00F3n");
+		btncancion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/**
 				 * Creo una jfilechooser donde voy a abrir la ventana de donde voy a coger la música.
@@ -363,9 +438,20 @@ public class principal extends JFrame {
 				
 			}
 		});
-		btnElegirCancin.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 11));
-		btnElegirCancin.setBounds(187, 69, 127, 23);
-		contentPane.add(btnElegirCancin);
+		btncancion.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 11));
+		btncancion.setBounds(187, 69, 127, 23);
+		contentPane.add(btncancion);
+		
+		JButton btnGenero = new JButton("Elegir g\u00E9nero");
+		btnGenero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		btnGenero.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 11));
+		btnGenero.setBounds(187, 92, 127, 23);
+		contentPane.add(btnGenero);
 		
 		
 				

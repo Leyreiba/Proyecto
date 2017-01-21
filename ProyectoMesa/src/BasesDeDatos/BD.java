@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import Datos.Cancion;
 
@@ -155,5 +156,37 @@ public class BD {
 			e.printStackTrace();
 		}
 		return genero;
+	}
+	
+	public ArrayList<Cancion> obtenerTodasLasCanciones(){
+		String query ="SELECT * FROM cancion";
+		ResultSet rs;
+		ArrayList<Cancion> aCanciones = new ArrayList<Cancion>();
+		
+		try {
+			rs = stmt.executeQuery(query);
+			while(rs.next()){
+				aCanciones.add(new Cancion(rs.getString("titulo"),rs.getInt("genero")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return aCanciones;
+	}
+	
+	public ArrayList<String> obtenerNombresGenero(){
+		String query="SELECT desc FROM genero";
+		ArrayList<String> aGeneros = new ArrayList<String>();
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				aGeneros.add(rs.getString("desc"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return aGeneros;
 	}
 }
