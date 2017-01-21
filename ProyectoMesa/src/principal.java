@@ -67,8 +67,7 @@ public class principal extends JFrame {
 	private JTextField textField1;
 	private JTextField textField2;
 
-	private int opcion = 1;
-	
+	private int opcion = 1;//Si es 1 elige vlcj, sino clips	
 
 	public static BD bd = new BD();
 	private JButton btncancion;
@@ -78,13 +77,13 @@ public class principal extends JFrame {
 
 	EmbeddedMediaPlayerComponent mediaPlayerComponent2;
 	EmbeddedMediaPlayer mediaPlayer2;
-	static int ordenador = 0;// si es el de leyre a 0 si es el mio a 1
+	static int ordenador = 0;// si es WINDOWS a 0 si es MAC a 1
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		int opcion=1;
+		int opcion=1;//Elige vlcj si es 1(EN MAC NO FUNCIONA)
 		
 				
 		if(opcion!=0){
