@@ -101,7 +101,7 @@ public class BD {
 	
 	
 	/**
-	 * Compruebo si la canción que quiero introducir ya existe en la BD
+	 * Compruebo si la canciï¿½n que quiero introducir ya existe en la BD
 	 * */
 	public boolean existeCancion(Cancion c){
 		boolean existe=false;
@@ -122,8 +122,8 @@ public class BD {
 	}
 	
 	/**
-	 * Inserto las canciones en la BD mientras no estén repetidas. Si una canción que quiero meter
-	 * ya está en la BD no la introduce de nuevo
+	 * Inserto las canciones en la BD mientras no estï¿½n repetidas. Si una canciï¿½n que quiero meter
+	 * ya estï¿½ en la BD no la introduce de nuevo
 	 * */
 	public void insertarNuevaCancion (Cancion c){
 		String query = "INSERT INTO cancion (titulo,genero) VALUES ('"+c.getTitulo()+"',"+c.getGenero()+")";
@@ -138,7 +138,7 @@ public class BD {
 	}
 	
 	/**
-	 * Creo un numero aleatorio desde 0 hasta el ultimo número de la tabla género
+	 * Creo un numero aleatorio desde 0 hasta el ultimo nï¿½mero de la tabla gï¿½nero
 	 * */
 	public int obtenerGeneroAleatorio(){
 		int cont, genero=0;
@@ -188,5 +188,22 @@ public class BD {
 			e.printStackTrace();
 		}
 		return aGeneros;
+	}
+	
+	public String obtenerRuta(String nombre){
+		String ruta="";
+		String query="SELECT Ruta FROM Cancion WHERE Nombre='"+nombre+"'";
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery(query);
+			while(rs.next())
+				ruta=rs.getString("Ruta");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ruta;
 	}
 }

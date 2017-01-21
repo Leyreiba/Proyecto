@@ -6,16 +6,26 @@ public class Cancion implements Serializable{
 	
 	private String titulo;
 	private int genero;
+	String ruta;
 	
 
 	
-	public Cancion(String titulo, int genero) {
+	public Cancion(String titulo, int genero, String ruta) {
 		super();
 		this.titulo = titulo;
 		this.genero= genero;
+		this.ruta=ruta;
 		
 		//crear un array de titulos cogiendo los de la carpeta de musica
 		
+	}
+
+	public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
 	}
 
 	public Cancion() {

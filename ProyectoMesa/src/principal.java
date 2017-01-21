@@ -10,6 +10,9 @@ import BasesDeDatos.BD;
 import Datos.Cancion;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
+import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -38,6 +41,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 
 public class principal extends JFrame {
@@ -48,28 +53,45 @@ public class principal extends JFrame {
 
 	// Atributo de VLCj
 //		private EmbeddedMediaPlayerComponent mediaPlayerComponent;
+	
 
 	private JPanel contentPane;
 	private JTextField textField1;
 	private JTextField textField2;
 	public static BD bd;
 
+	EmbeddedMediaPlayerComponent mediaPlayerComponent;
+	EmbeddedMediaPlayer mediaPlayer;
+
+	EmbeddedMediaPlayerComponent mediaPlayerComponent2;
+	EmbeddedMediaPlayer mediaPlayer2;
+	static int ordenador = 0;//si es el de leyre a 0 si es el mio a 1
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 
 		
-//		// Inicializar VLC.
-//	
-//			// Buscar vlc como variable de entorno
-//			String vlcPath = System.getenv().get( "vlc" );
-//			if (vlcPath==null) {  // Poner VLC a mano
-//	        	System.setProperty("jna.library.path", "c:\\Program Files\\videolan\\VLC");
-//			} else {  // Poner VLC desde la variable de entorno
-//				System.setProperty( "jna.library.path", vlcPath );
-//			}
-		
+			// Inicializar VLC.
+		// Probar con el buscador nativo...
+		boolean found = new NativeDiscovery().discover();
+		// System.out.println( LibVlc.INSTANCE.libvlc_get_version() ); //
+		// Visualiza versi�n de VLC encontrada
+		// Si no se encuentra probar otras opciones:
+		if (!found) {
+			// Buscar vlc como variable de entorno
+			String vlcPath = System.getenv().get("vlc");
+			if (vlcPath == null) {
+				// Poner VLC a mano
+				if (ordenador == 1){System.setProperty("jna.library.path", "/Applications/VLC"
+				);}else{
+					System.setProperty("jna.library.path", "c:\\Program Files\\videolan\\VLC"
+						);}
+			} else { // Poner VLC desde la variable de entorno
+				System.setProperty("jna.library.path", vlcPath);
+			}
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -88,6 +110,38 @@ public class principal extends JFrame {
 	
 	
 	public principal() {
+		
+		//Componente VLCJ
+		mediaPlayerComponent = new EmbeddedMediaPlayerComponent() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected FullScreenStrategy onGetFullScreenStrategy() {
+				return new Win32FullScreenStrategy(principal.this);
+			}
+		};
+		mediaPlayer = mediaPlayerComponent.getMediaPlayer();
+		
+	
+
+		mediaPlayerComponent2 = new EmbeddedMediaPlayerComponent() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected FullScreenStrategy onGetFullScreenStrategy() {
+				return new Win32FullScreenStrategy(principal.this);
+			}
+		};
+		mediaPlayer2 = mediaPlayerComponent2.getMediaPlayer();
+		mediaPlayerComponent.setBounds(0,0,20,20);
+		mediaPlayerComponent2.setBounds(0,0,20,20);
+		
+		contentPane.add(mediaPlayerComponent);
+		contentPane.add(mediaPlayerComponent2);
+		
+		
+		
+		
 		File f = new File("MUSICA\\POP");
 		if(!f.exists())
 			f.mkdirs();
@@ -104,7 +158,7 @@ public class principal extends JFrame {
 	    	if (listOfFiles[i].isFile())             
 	    	{
 	                String nombreCancion = listOfFiles[i].getName();
-	                bd.insertarNuevaCancion(new Cancion(nombreCancion,bd.obtenerGeneroAleatorio()));
+	                bd.insertarNuevaCancion(new Cancion(nombreCancion,bd.obtenerGeneroAleatorio(),listOfFiles[i].getAbsolutePath()));
 	        }
 	    }
 	    ArrayList<String> aGeneros = bd.obtenerNombresGenero();
@@ -315,62 +369,124 @@ public class principal extends JFrame {
 				
 		JSlider slider = new JSlider();
 		slider.setBounds(187, 286, 128, 26);
+		slider.setMinimum(-50);
+		slider.setMaximum(50);
+		slider.setValue(0);
+		slider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(slider.getValue()>0){
+				mediaPlayer2.setVolume(50+slider.getValue());
+				mediaPlayer.setVolume(50-slider.getValue());
+				}else{
+					mediaPlayer2.setVolume(50+slider.getValue());
+					mediaPlayer.setVolume(50-slider.getValue());
+					
+				}
+			}
+		});
 		contentPane.add(slider);
 		
 		JSlider slider_1 = new JSlider();
 		slider_1.setOrientation(SwingConstants.VERTICAL);
+		slider_1.setMinimum(0);
+		slider_1.setMaximum(100);
+		slider_1.setValue(50);
 		slider_1.setBounds(197, 115, 28, 156);
+		slider_1.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+				mediaPlayer.setVolume(slider_1.getValue());
+				
+			}
+		});
 		contentPane.add(slider_1);
 		
 		JSlider slider_2 = new JSlider();
 		slider_2.setOrientation(SwingConstants.VERTICAL);
 		slider_2.setBounds(235, 115, 28, 156);
+		slider_2.setMinimum(0);
+		slider_2.setMaximum(100);
+		slider_2.setValue(50);
+		slider_2.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				
+				mediaPlayer2.setVolume(slider_2.getValue());
+				mediaPlayer.setVolume(slider_2.getValue());
+				
+			}
+		});
+
 		contentPane.add(slider_2);
-		
+		//
 		JSlider slider_3 = new JSlider();
 		slider_3.setOrientation(SwingConstants.VERTICAL);
 		slider_3.setBounds(273, 115, 28, 156);
+		slider_3.setMinimum(0);
+		slider_3.setMaximum(100);
+		slider_3.setValue(50);
+		slider_3.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				
+				mediaPlayer2.setVolume(slider_3.getValue());
+			}
+		});
 		contentPane.add(slider_3);
 		
+		
+		//BOTON PLAY IZQUIERDA
 		JButton BotonPlayIzq = new JButton(">");
 		BotonPlayIzq.setBounds(37, 36, 58, 23);
 		contentPane.add(BotonPlayIzq);
-		
+		BotonPlayIzq.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			lanzaVideo(bd.obtenerRuta(list2.getSelectedValue()));
+			}
+		});
+		//BOTON PAUSA IZQUIERDA
 		JButton BotonPausaIzq = new JButton("||");
 		BotonPausaIzq.setBounds(119, 36, 58, 23);
+		BotonPausaIzq.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			mediaPlayer2.pause();
+			}
+		});
 		contentPane.add(BotonPausaIzq);
 		
+		//BOTON PLAY DERECHA
 		JButton BotonPlayDrcha = new JButton(">");
 		BotonPlayDrcha.setBounds(324, 36, 58, 23);
-//		BotonPlayDrcha.addActionListener( new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
-//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
-//					} else {
-//						// TODO: hacer play
-//					}
-//				} else {
-//					lanzaVideo();
-//				}
-//			}
-//		});
+		BotonPlayDrcha.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			lanzaVideo(bd.obtenerRuta(list1.getSelectedValue()));
+			}
+		});
 		contentPane.add(BotonPlayDrcha);
 		
+		//BOTON PAUSA DERECHA
 		JButton BotonPausaDrcha = new JButton("||");
 		BotonPausaDrcha.setBounds(406, 36, 58, 23);
-//		BotonPausaDrcha.addActionListener( new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
-//					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
-//						// TODO: hacer pausa
-//					}
-//				} else {
-//					lanzaVideo();
-//				}
-//			}
-//		});
+		BotonPausaDrcha.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			mediaPlayer.pause();
+			}
+		});
 		contentPane.add(BotonPausaDrcha);
 		
 		
@@ -422,7 +538,8 @@ public class principal extends JFrame {
 					DefaultListModel<String> dlm = (DefaultListModel<String>) list1.getModel(); 
 					for(int i=0;i<cancionesSeleccionadas.length;i++){
 						System.out.println("VAMOS A INSERTAR UNA CANCION");
-						Cancion c = new Cancion(cancionesSeleccionadas[i].getName(), bd.obtenerGeneroAleatorio());
+						Cancion c = new Cancion(cancionesSeleccionadas[i].getName(), bd.obtenerGeneroAleatorio(), 
+								cancionesSeleccionadas[i].getAbsolutePath() );
 						bd.insertarNuevaCancion(c);
 						System.out.println("Cancion insertada");
 						dlm.addElement(cancionesSeleccionadas[i].getName());
@@ -453,8 +570,28 @@ public class principal extends JFrame {
 		btnGenero.setBounds(187, 92, 127, 23);
 		contentPane.add(btnGenero);
 		
-		
+	}
 				
+		private void lanzaVideo(String ruta) {
+			if (mediaPlayer != null) {
+				File ficVideo = new File(ruta);
+				mediaPlayer.playMedia(ficVideo.getAbsolutePath());
+				mediaPlayer.setVolume(60);
+
+			} else {
+
+			}
+		}
+
+		private void lanzaVideo2(String ruta) {
+			if (mediaPlayer2 != null) {
+				File ficVideo = new File(ruta);
+				mediaPlayer2.playMedia(ficVideo.getAbsolutePath());
+				mediaPlayer2.setVolume(60);
+
+			} else {
+
+			}
 		
 		
 				
@@ -501,4 +638,4 @@ public class principal extends JFrame {
 		
 		
 	}
-}
+}   

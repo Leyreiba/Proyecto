@@ -6,5 +6,7 @@
 	<classpathentry kind="lib" path="C:/Users/Leyre/Downloads/vlcj-3.0.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Leyre/Downloads/vlcj-3.8.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Leyre/Downloads/JLayer1.0.1/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/vlcj-3.10.1.jar"/>
+	<classpathentry kind="lib" path="/Users/MacOier/Downloads/sqlite-jdbc-3.15.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
