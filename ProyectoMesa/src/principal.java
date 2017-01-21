@@ -46,6 +46,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import org.slf4j.impl.StaticLoggerBinder;
 
+import com.sun.jna.NativeLibrary;
+
 public class principal extends JFrame {
 	/**
 	 * 
@@ -66,7 +68,7 @@ public class principal extends JFrame {
 
 	EmbeddedMediaPlayerComponent mediaPlayerComponent2;
 	EmbeddedMediaPlayer mediaPlayer2;
-	static int ordenador = 0;//si es el de leyre a 0 si es el mio a 1
+	static int ordenador = 1;//si es el de leyre a 0 si es el mio a 1
 	
 	/**
 	 * Launch the application.
@@ -77,6 +79,8 @@ public class principal extends JFrame {
 			// Inicializar VLC.
 		// Probar con el buscador nativo...
 		boolean found = new NativeDiscovery().discover();
+//		NativeLibrary.addSearchPath("vlc", "/Users/MacOier/git/ProyectoMesaMezclas/ProyectoMesa/libsVLC-32bits");
+
 		// System.out.println( LibVlc.INSTANCE.libvlc_get_version() ); //
 		// Visualiza versi�n de VLC encontrada
 		// Si no se encuentra probar otras opciones:
@@ -127,15 +131,15 @@ public class principal extends JFrame {
 
 		mediaPlayerComponent2 = new EmbeddedMediaPlayerComponent() {
 			private static final long serialVersionUID = 1L;
-
+//
 			@Override
 			protected FullScreenStrategy onGetFullScreenStrategy() {
 				return new Win32FullScreenStrategy(principal.this);
 			}
 		};
 		mediaPlayer2 = mediaPlayerComponent2.getMediaPlayer();
-		mediaPlayerComponent.setBounds(0,0,20,20);
-		mediaPlayerComponent2.setBounds(0,0,20,20);
+		mediaPlayerComponent.setBounds(0,0,0,0);
+		mediaPlayerComponent2.setBounds(0,0,0,0);
 		
 		contentPane.add(mediaPlayerComponent);
 		contentPane.add(mediaPlayerComponent2);
