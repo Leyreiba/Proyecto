@@ -473,7 +473,7 @@ public class principal extends JFrame {
 		BotonPlayDrcha.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			lanzaVideo(bd.obtenerRuta(list1.getSelectedValue()));
+			lanzaVideo2(bd.obtenerRuta(list1.getSelectedValue()));
 			}
 		});
 		contentPane.add(BotonPlayDrcha);
