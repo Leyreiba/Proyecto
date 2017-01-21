@@ -44,6 +44,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
+import org.slf4j.impl.StaticLoggerBinder;
 
 public class principal extends JFrame {
 	/**
