@@ -84,7 +84,7 @@ public class principal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		int opcion=0;
+		int opcion=1;
 		
 				
 		if(opcion!=0){
