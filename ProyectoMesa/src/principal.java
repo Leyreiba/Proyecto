@@ -54,9 +54,9 @@ public class principal extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// Atributo de VLCj
-	// private EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
+	// private EmbeddedMediaPlayerComponent mediaPlayerComponent;
+	//Atributos de la alternativa al VLCJ
 	private Clip clip;
 	private Clip clip2;
 
@@ -71,7 +71,7 @@ public class principal extends JFrame {
 
 	public static BD bd = new BD();
 	private JButton btncancion;
-
+	// Atributo de VLCj
 	EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	EmbeddedMediaPlayer mediaPlayer;
 
@@ -89,7 +89,7 @@ public class principal extends JFrame {
 		if(opcion!=0){
 		// Inicializar VLC.
 		// Probar con el buscador nativo...
-		boolean found = new NativeDiscovery().discover();
+		boolean found = new NativeDiscovery().discover();//Busca el vlc
 		// NativeLibrary.addSearchPath("vlc",
 		// "/Users/MacOier/git/ProyectoMesaMezclas/ProyectoMesa/libsVLC-32bits");
 
@@ -307,11 +307,11 @@ public class principal extends JFrame {
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				if (slider.getValue() > 0) {
-					mediaPlayer2.setVolume(50 + slider.getValue());
-					mediaPlayer.setVolume(50 - slider.getValue());
+					mediaPlayer2.setVolume(50 - slider.getValue());
+					mediaPlayer.setVolume(50 + slider.getValue());
 				} else {
-					mediaPlayer2.setVolume(50 + slider.getValue());
-					mediaPlayer.setVolume(50 - slider.getValue());
+					mediaPlayer2.setVolume(50 - slider.getValue());
+					mediaPlayer.setVolume(50 + slider.getValue());
 
 				}
 			}
@@ -339,6 +339,8 @@ public class principal extends JFrame {
 		slider_1.setMaximum(100);
 		slider_1.setValue(50);
 		slider_1.setBounds(197, 115, 28, 156);
+		
+		
 		slider_3.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -349,7 +351,7 @@ public class principal extends JFrame {
 
 			}
 		});
-		contentPane.add(slider_1);
+		contentPane.add(slider_3);
 
 		slider_2.addChangeListener(new ChangeListener() {
 
@@ -374,7 +376,7 @@ public class principal extends JFrame {
 				mediaPlayer2.setVolume(slider_1.getValue());
 			}
 		});
-		contentPane.add(slider_3);
+		contentPane.add(slider_1);
 
 		// BOTON PLAY IZQUIERDA
 		JButton BotonPlayIzq = new JButton(">");
@@ -388,9 +390,9 @@ public class principal extends JFrame {
 		BotonPlayDrcha.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (opcion != 0) {
+				if (opcion != 0) {//VLCJ
 					lanzaVideo(bd.obtenerRuta(list2.getSelectedValue()));
-				} else {
+				} else {//Audio System(SOLO .WAV)
 					try {
 						audio = AudioSystem.getAudioInputStream(new File(bd.obtenerRuta(list2.getSelectedValue())));
 						clip = AudioSystem.getClip();
@@ -400,8 +402,8 @@ public class principal extends JFrame {
 					} catch (Exception h) {
 					h.printStackTrace();
 //				PARA CAMBIAR EL VOLUMEN
-//				FloatControl volumen= (FloatControl) AQUI EL CLIP O CLIP2.getControl (javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
-//				volume.setValue(AQUI PONES LOS DECIBELIOS QUE QUIERES CAMBIAR + O -);
+//				FloatControl volumen = (FloatControl <clip O clip2.getControl>) (javax.sound.sampled.FloatControl.Type.MASTER_GAIN);
+//				volume.setValue(DECIBELIOS + O -);
 				
 					//Si pones opcion a 0 coge lo de wav, si pones cualquier otro numero coge VLC
 //					
@@ -555,22 +557,18 @@ public class principal extends JFrame {
 		if (mediaPlayer != null) {
 			File ficVideo = new File(ruta);
 			mediaPlayer.playMedia(ficVideo.getAbsolutePath());
-			mediaPlayer.setVolume(60);
+			mediaPlayer.setVolume(50);
 
-		} else {
-
-		}
+		} 
 	}
 
 	private void lanzaVideo2(String ruta) {
 		if (mediaPlayer2 != null) {
 			File ficVideo = new File(ruta);
 			mediaPlayer2.playMedia(ficVideo.getAbsolutePath());
-			mediaPlayer2.setVolume(60);
+			mediaPlayer2.setVolume(50);
 
-		} else {
-
-		}
+		} 
 
 		// if(JList.cancion(nº).isSelected()){
 		//

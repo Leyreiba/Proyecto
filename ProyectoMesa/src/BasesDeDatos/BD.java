@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import Datos.Cancion;
 
 public class BD {
+	/**
+	 * LA BASE DE DATOS ESTA YA CREADA CON SQLITEMAN
+	 */
 	
 	//creo una carpeta dentro del proyecto donde meto todas las canciones con la extension mp3. 
 	//En la base de datos introduzco el nombre de la cancion y desde el programa hago un audioClip llamando a la cancion con ese nombre
@@ -40,6 +43,7 @@ public class BD {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
+			//Se conecta al fichero de base de datos que tiene el proyecto
 			con= DriverManager.getConnection("jdbc:sqlite:mesa.db");
 			crearSentencia();
 		}catch(Exception e)
@@ -75,7 +79,7 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	
+	//Metodo que llama al método conectar y saca por consola si se ha conectado a la base de datos
 	public BD(){
 		conectar();
 		System.out.println("CONECTADA");

@@ -15,6 +15,10 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 public class ecualizador extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ArrayList<String> titulosVentana;
 	
@@ -23,7 +27,7 @@ public class ecualizador extends JFrame {
 		 
 		 /**
 		  * El nombre de la ventana va cambiando y va introduciendo aleatoriamente en un array de strings
-		  * comentarios que yo he añadido
+		  * comentarios que yo he aÃ±adido
 		  */
 	
 		 titulosVentana = new ArrayList<String>();
@@ -81,21 +85,22 @@ public class ecualizador extends JFrame {
 	            //lanzo un thread por cada barra para que comienze el movimiento
 	            Barra[i] = new Thread(b[i]);
 	            Barra[i].start();
-	            //voy añadiendo todas las barras del array
+	            //voy aï¿½adiendo todas las barras del array
 	            this.add(b[i]);
 	        }
 	    }
 	    class Barra extends JPanel implements Runnable{
-	    		   	 	    	
 	        private int limite;
 	        private int inferior;
 	        private Rectangle rectangulo;
 	        public Barra(){
 	            setBackground(Color.BLACK);
 	            Random r = new Random();
+	            
 	            // en vez de hacer un random deberiamos coordinarlo con las canciones que van sonando
 	            //crea un random desde 0 hasta el numero que le metamos entre()
 	            //el limite de la barra va a ser ese numero entre()
+	            
 	            limite = r.nextInt(300);
 	            inferior = 0;
 	            //Creamos un rectangulo con unas dimensiones
@@ -112,8 +117,7 @@ public class ecualizador extends JFrame {
 	            try{
 	                while(true){
 	                	//colocamos los rectangulos en el eje x e y(moviendose en 8 milisegundos)
-	                    rectangulo.setLocation((int) rectangulo.getX(),
-	                    (int) rectangulo.getY()-8);
+	                    rectangulo.setLocation((int) rectangulo.getX(), (int) rectangulo.getY()-8);
 	                    //velocidad de 8 milisegundos
 	                    inferior += 8;
 	                    if(inferior > limite){
@@ -123,8 +127,8 @@ public class ecualizador extends JFrame {
 	                    rectangulo.setSize(48, inferior);
 	            		
 				        repaint();
-	                    //lanza un thread para controlar la velocidad de cambio de los rectangulos
-	                    Thread.sleep(15);
+	                    // controla la velocidad de cambio de los rectangulos
+	                    Thread.sleep(50);
 	                }
 	            } catch(InterruptedException e) {}
 	            
