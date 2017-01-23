@@ -31,11 +31,11 @@ public class ecualizador extends JFrame {
 		  */
 	
 		 titulosVentana = new ArrayList<String>();
-		 titulosVentana.add("titulo 1");
-         titulosVentana.add("titulo 2");
-         titulosVentana.add("titulo 3");
-         titulosVentana.add("titulo 4");
-         titulosVentana.add("titulo 5");
+		 titulosVentana.add("Esas manos arriiiiiibaaaaaaaa!");
+         titulosVentana.add("Subidón subidón!!");
+         titulosVentana.add("Aquí te pillo, aquí TEMAZO!");
+         titulosVentana.add("Vaya fiestón");
+         titulosVentana.add("Dale!");
          
 //         //array de colores para el fondo
 //         colorBackground = new ArrayList<int>();
@@ -77,7 +77,7 @@ public class ecualizador extends JFrame {
 	        setLayout(new GridLayout(1, 10));
 	        //creo un array de barras
 	        Barra[]b = new Barra[10];
-	        //creo un thread
+	        //creo un array de threads
 	        Thread[]Barra = new Thread[10];
 	        //recorro el array y le voy asignando una barra a cada posicion
 	        for(int i = 0; i<b.length; i++){
